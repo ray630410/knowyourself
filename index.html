@@ -1,0 +1,248 @@
+<html>
+  <head>
+    <style>
+      /* Card styles */
+      .card {
+        height: 30px;
+        width: 150px;
+        background-color: green;
+        margin: 5px;
+        display: inline-block;
+        text-align: center;
+        font-size: 16px;
+        padding-top: 10px;
+        color: white;
+      }
+      /* Yellow background for selected cards */
+      .selected {
+        background-color: darkblue;
+      }
+      /* Counter styles */
+      .counter {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hint"><span id="hint">從這70張卡片中選出最能代表你的30張卡片，然後按下一步！</span></div>
+    <div class="counter">選擇卡片: <span id="count">0</span>/<span id="total">30</span></div>
+    <div id="cards">
+      <!-- Cards:內在價值 -->
+      <div class="card" id="card1">做善事</div>
+      <div class="card" id="card2">不断的自我探索</div>
+      <div class="card" id="card3">做自己</div>
+      <div class="card" id="card4">公平</div>
+      <div class="card" id="card5">有赤子之心</div>
+      <div class="card" id="card6">内心的平静</div>
+      <div class="card" id="card7">相信信仰的力量</div>
+      <div class="card" id="card8">有内涵的生命</div>
+      <div class="card" id="card9">安全感</div>
+      <div class="card" id="card10">享受自由</div>
+      <div class="card" id="card11">自主权</div>
+      <div class="card" id="card12">勇于挑战/冒险</div>
+      <div class="card" id="card13">自信</div>
+      <div class="card" id="card14">务实踏实</div>
+      <div class="card" id="card15">做善良的人</div>
+      <div class="card" id="card16">欣赏美的事物</div>
+      <div class="card" id="card17">为梦想奋斗</div>
+      <div class="card" id="card18">工作有意义</div>
+      <div class="card" id="card19">专业能力被认可</div>
+      <div class="card" id="card20">富正义感</div>
+      <div class="card" id="card21">做事勤奋</div>
+      <div class="card" id="card22">发挥创造力</div>
+      <div class="card" id="card23">拥抱改变</div>
+      <div class="card" id="card24">受人尊重</div>
+      <div class="card" id="card25">发挥专业的技巧</div>
+      <div class="card" id="card26">有诚信</div>
+      <div class="card" id="card27">成就感</div>
+      <!-- Cards:人際關係 -->
+      <div class="card" id="card28">讲义气</div>
+      <div class="card" id="card29">有社会地位</div>
+      <div class="card" id="card30">喜欢交朋友</div>
+      <div class="card" id="card31">影响他人</div>
+      <div class="card" id="card32">激励他人</div>
+      <div class="card" id="card33">喜欢帮助他人</div>
+      <div class="card" id="card34">能谈心的朋友</div>
+      <div class="card" id="card35">向往美满的婚姻</div>
+      <div class="card" id="card36">有火花的爱情关系</div>
+      <div class="card" id="card37">亲密的家人关系</div>
+      <div class="card" id="card38">孝顺</div>
+      <div class="card" id="card39">陪孩子成长</div>
+      <div class="card" id="card40">与伙伴一起奋斗</div>
+      <div class="card" id="card41">与众不同</div>
+      <div class="card" id="card42">喜欢参与志愿者活动</div>
+      <!-- Cards:生活風格 -->
+      <div class="card" id="card43">活得久</div>
+      <div class="card" id="card44">享受美味</div>
+      <div class="card" id="card45">拥有健康的身体</div>
+      <div class="card" id="card46">长期/固定运动</div>
+      <div class="card" id="card47">生活规律/单纯</div>
+      <div class="card" id="card48">有兴趣爱好</div>
+      <div class="card" id="card49">喜欢外出</div>
+      <div class="card" id="card50">喜欢发呆</div>
+      <div class="card" id="card51">爱好独处</div>
+      <div class="card" id="card52">四处旅行</div>
+      <div class="card" id="card53">做喜欢的事</div>
+      <div class="card" id="card54">喜好户外和大自然</div>
+      <div class="card" id="card55">有机生活</div>
+      <div class="card" id="card56">对生活保持热诚</div>
+      <div class="card" id="card57">追求精神生活</div>
+      <div class="card" id="card58">喜欢稳定</div>
+      <div class="card" id="card59">保持学习</div>
+      <div class="card" id="card60">多彩多姿的生活</div>
+      <div class="card" id="card61">生活单纯</div>
+      <!-- Cards:物質條件 -->
+      <div class="card" id="card62">实现财务自由</div>
+      <div class="card" id="card63">有赚钱的能力</div>
+      <div class="card" id="card64">赚得钱够用</div>
+      <div class="card" id="card65">有房有车</div>
+      <div class="card" id="card66">有搜藏的喜好</div>
+      <div class="card" id="card67">潮流的打扮</div>
+      <div class="card" id="card68">有财富</div>
+      <div class="card" id="card69">有权有势</div>
+      <div class="card" id="card70">追求升迁/高薪</div>
+    </div>
+    <!-- Next button -->
+    <button id="nextButton">下一步</button>
+    <div class="result"><span id="result"></span></div>
+    <script>
+      let step = 1;
+      // Counter for selected cards
+      let count = 0;
+      // Keep track of selected cards
+      let selectedCards = [];
+      
+      // Get all cards
+      let cards = document.querySelectorAll('.card');
+      // Add click event listener to each card
+      for (let card of cards) {
+        card.addEventListener('click', function() {
+          if(step == 1)
+          {
+            // Check if card has been selected
+            if (card.classList.contains('selected')) {
+              // Deselect card
+              card.classList.remove('selected');
+              count--;
+              // Remove card from selected cards list
+              //alert(card.id);
+              let index = selectedCards.indexOf(card.id);
+              if (index > -1) {
+                selectedCards.splice(index, 1);
+              }
+            } else {
+              // Select card
+              if (count < 30) {
+                card.classList.add('selected');
+                count++;
+                // Add card to selected cards list
+                selectedCards.push(card.id);
+              }
+              else
+                alert("你已經選了30張卡片了哦!");
+            }
+            // Update counter
+            document.querySelector('#count').innerHTML = count;
+          }
+          else if(step == 2)
+          {
+            // Check if card has been selected
+            if (card.classList.contains('selected')) {
+              // Deselect card
+              card.classList.remove('selected');
+              count--;
+              // Remove card from selected cards list
+              //alert(card.id);
+              let index = selectedCards.indexOf(card.id);
+              if (index > -1) {
+                selectedCards.splice(index, 1);
+              }
+            } else {
+              // Select card
+              if (count < 10) {
+                card.classList.add('selected');
+                count++;
+                // Add card to selected cards list
+                selectedCards.push(card.id);
+              }
+              else
+                alert("你已經選了10張卡片了哦!");
+            }
+            // Update counter
+            document.querySelector('#count').innerHTML = count;
+          }
+        });
+      }
+      
+      // Get next button
+      let nextButton = document.querySelector('#nextButton');
+      // Add click event listener to next button
+      nextButton.addEventListener('click', function() {
+        if(step == 1)
+        {
+          if(count < 30)
+          {
+            alert("你要先選30張卡片再按下一步哦！");
+          }
+          else
+          {
+            // Hide all cards
+            for (let card of cards) {
+              card.style.display = 'none';
+            }
+            // Show only selected cards
+            for (let id of selectedCards) {
+              let selectedCard = document.querySelector('#' + id);
+              selectedCard.style.display = 'inline-block';
+              selectedCard.classList.remove('selected');
+            }
+            step = 2;
+            count = 0;
+            selectedCards = [];
+            document.querySelector('#count').innerHTML = 0;
+            document.querySelector('#total').innerHTML = 10;
+            document.querySelector('#hint').innerHTML = "現在再從這30張卡片中選出更能代表你的10張卡片，然後按下一步！";
+          }
+        }
+        else if(step == 2)
+        {
+          if(count < 10)
+          {
+            alert("你要先選10張卡片再按下一步哦！");
+          }
+          else
+          {
+            // Hide all cards
+            for (let card of cards) {
+              card.style.display = 'none';
+            }
+            // Show only selected cards
+            step = 3;
+            let s1 = s2 = s3 = s4 = 0;
+            let sss = "";
+            for (let id of selectedCards) {
+              let selectedCard = document.querySelector('#' + id);
+              selectedCard.style.display = 'inline-block';
+              let cn = id.match(/\d+/)[0];
+              if(cn < 28)
+                s1++;
+              else if(cn < 43)
+                s2++;
+              else if(cn < 62)
+                s3++;
+              else
+                s4++;
+            }
+            document.querySelector('#hint').innerHTML = "測驗結束，重新整理網頁或按F5可以重來！";
+            document.querySelector('#result').innerHTML = "<br>內在價值:"+s1+"<br>人際關係:"+s2+"<br>生活風格:"+s3+"<br>物質條件:"+s4;
+          }
+        }
+        else if(step == 3)
+        {
+          alert("測驗結束，重新整理網頁或按F5可以重來！");
+        }
+      });
+    </script>
+  </body>
+</html>
